@@ -5,8 +5,6 @@ import gurobi.{GRBModel, GRB}
 case class Variable private (lowerBound: Double, upperBound: Double, varType: VARIABLE_TYPE, name: String, id: Int,
                              model: GRBModel) {
   val reference = model.addVar(lowerBound, upperBound, 0, varType.value, name)
-  //model.update()
-  //assert(model.getVar(id) == reference)
 
   override def toString = varType + " Variable " + id + " named " + name
 }
