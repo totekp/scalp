@@ -3,7 +3,7 @@ package org.scalp
 import gurobi.GRB.{DoubleAttr, StringAttr}
 import gurobi._
 
-abstract class ILP(val name: String, val environment: GRBEnv = new GRBEnv()) extends ModelPart(new GRBModel(environment)) {
+abstract class LP(val name: String, val environment: GRBEnv = new GRBEnv()) extends ModelPart(new GRBModel(environment)) {
   model.set(StringAttr.ModelName, name)
   private var parts = Set[ModelPart](this)
 
@@ -86,3 +86,15 @@ abstract class ILP(val name: String, val environment: GRBEnv = new GRBEnv()) ext
 
   def getValue(id: Int): Double = getValue(model.getVar(id))
 }
+
+object LP {
+  def minimizeContinuousVariable(lowerBound: Double, upperBound: Double) =
+    new LPConfiguration minimizeContinuousVariable(lowerBound, upperBound)
+  def minimizeIntegerVariable(lowerBound: Int, upperBound: Int) =
+    new LPConfiguration minimizeIntegerVariable(lowerBound, upperBound)
+  def maximizeContinuousVariable(lowerBound: Double, upperBound: Double) =
+    new LPConfiguration maximizeContinuousVariable(lowerBound, upperBound)
+  def maximizeIntegerVariable(lowerBound: Int, upperBound: Int) =
+    new LPConfiguration maximizeIntegerVariable(lowerBound, upperBound)
+}
+
