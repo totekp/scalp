@@ -1,6 +1,6 @@
 package org.scalp
 
-class LPConfiguration {
+class LPConfiguration private[scalp]() {
   private var name = ""
 
   def withName(name: String) = {
