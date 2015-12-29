@@ -1,4 +1,4 @@
-import org.scalatest.{Matchers, GivenWhenThen, FeatureSpec}
+import org.scalatest.{FeatureSpec, GivenWhenThen, Matchers}
 import org.scalp.{Constraint, LP}
 
 class OneVarTest extends FeatureSpec with GivenWhenThen with Matchers {
@@ -10,16 +10,16 @@ class OneVarTest extends FeatureSpec with GivenWhenThen with Matchers {
   feature("Optimize one-continuous-var LP with Gurobi") {
     scenario("minimize") {
       Given("we run an LP that minimizes one continuous " + varDesc)
-      val result = LP minimizeContinuousVariable (lowerBound, upperBound)
+      val result = LP minimizeContinuousVariable(lowerBound, upperBound)
       Then("the result should be " + lowerBound)
-      result should be (lowerBound)
+      result should be(lowerBound)
     }
 
     scenario("maximize") {
       Given("we run an LP that maximizes one continuous " + varDesc)
-      val result = LP maximizeContinuousVariable (lowerBound, upperBound)
+      val result = LP maximizeContinuousVariable(lowerBound, upperBound)
       Then("the result should be " + upperBound)
-      result should be (upperBound)
+      result should be(upperBound)
     }
   }
 

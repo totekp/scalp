@@ -1,3 +1,3 @@
 package org.scalp
 
-class Term(val variable: Variable, val factor: Double=1)
+class Term(val variable: Variable, val factor: Double = 1d)

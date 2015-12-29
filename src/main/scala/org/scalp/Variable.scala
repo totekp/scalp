@@ -2,8 +2,13 @@ package org.scalp
 
 import gurobi.{GRBModel, GRB}
 
-case class Variable private (lowerBound: Double, upperBound: Double, varType: VARIABLE_TYPE, name: String, id: Int,
-                             model: GRBModel) {
+case class Variable private (lowerBound: Double,
+                             upperBound: Double,
+                             varType: VARIABLE_TYPE,
+                             name: String,
+                             id: Int,
+                             model: GRBModel
+) {
   val reference = model.addVar(lowerBound, upperBound, 0, varType.value, name)
 
   override def toString = varType + " Variable " + id + " named " + name

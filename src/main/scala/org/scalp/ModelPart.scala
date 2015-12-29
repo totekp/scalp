@@ -3,10 +3,10 @@ package org.scalp
 import gurobi.{GRB, GRBModel}
 
 abstract class ModelPart(protected val model: GRBModel) {
-  private var constraints = 0
+  private var constraints: Int = 0
 
-  def variableCount = Variable.count
-  def constraintCount = constraints
+  def variableCount: Int = Variable.count
+  def constraintCount: Int = constraints
 
   def add(constraint: Constraint) {
     constraint addTo model
@@ -19,9 +19,9 @@ abstract class ModelPart(protected val model: GRBModel) {
 
   def synchronizeVars() { model.update() }
 
-  def const(constant: Double) = new Constant(constant)
+  def const(constant: Double): Constant = new Constant(constant)
 
-  private def synchronize(variable: Variable) = {
+  private def synchronize(variable: Variable): Variable = {
     model.update()
     variable
   }
@@ -36,11 +36,11 @@ abstract class ModelPart(protected val model: GRBModel) {
   def sos1LinearDecreasing(vars: Array[Variable]) = sos1(vars, linearDecreasingWeightsFor(vars))
 
   def sos1(vars: Array[Variable], weights: Array[Double]) {
-    require(vars.size == weights.size)
+    require(vars.length == weights.length)
     model.addSOS(vars map (_.reference), weights, GRB.SOS_TYPE1)
   }
 
-  private def linearIncreasingWeightsFor(vars: Array[Variable]) = ((0 until vars.size) map (_.toDouble)).toArray
+  private def linearIncreasingWeightsFor(vars: Array[Variable]) = ((0 until vars.length) map (_.toDouble)).toArray
 
   private def linearDecreasingWeightsFor(vars: Array[Variable]) = linearIncreasingWeightsFor(vars).reverse
 

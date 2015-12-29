@@ -1,6 +1,8 @@
-name := "org/scalp"
+name := "scalp"
 
 version := "0.1"
 
-libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0" % "test"
+scalaVersion := "2.11.7"
+
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.4" % "test"
 
