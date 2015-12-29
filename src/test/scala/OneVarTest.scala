@@ -1,5 +1,5 @@
 import org.scalatest.{FeatureSpec, GivenWhenThen, Matchers}
-import org.scalp.{Constraint, LP}
+import org.scalp.{ScalpUtil, Constraint, LP}
 
 class OneVarTest extends FeatureSpec with GivenWhenThen with Matchers {
   val lowerBound = -0.4
@@ -41,14 +41,15 @@ class OneVarTest extends FeatureSpec with GivenWhenThen with Matchers {
     scenario("minimize with one limiting constraint") {
       Given("We run an LP that minimizes one integer " + varDesc + " larger than 5.6")
       var result = 0
-      new LP("Test") {
+      ScalpUtil.withClose(new LP("Test") {
         override def run() {
           val intVar = integerVar(lowerBound.toInt, upperBound.toInt, "test variable");
           add((Constraint limiting intVar) >= 5.6 named "test constraint")
           minimize(intVar)
           result = getValue(intVar).toInt
         }
-      }.run()
+      })(_.run(), _.dispose())
+
       Then("the result should be 6")
       result should be(6)
     }

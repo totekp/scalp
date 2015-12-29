@@ -18,6 +18,11 @@ abstract class LP(val name: String, val environment: GRBEnv = new GRBEnv()) exte
     synchronized(parts += part)
   }
 
+  override def dispose()  {
+    environment.dispose()
+    super.dispose()
+  }
+
   private def minimize(objective: GRBLinExpr) {
     model.setObjective(objective, GRB.MINIMIZE)
     objectiveSet = true

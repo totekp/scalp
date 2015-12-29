@@ -13,6 +13,10 @@ abstract class ModelPart(protected val model: GRBModel) {
     synchronized(constraints += 1)
   }
 
+  def dispose()  {
+    model.dispose()
+  }
+
   def addMultiple(constraints: Set[Constraint]) {
     constraints foreach add
   }

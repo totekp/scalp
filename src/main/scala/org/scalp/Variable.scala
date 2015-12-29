@@ -17,8 +17,11 @@ case class Variable private (lowerBound: Double,
 object Variable {
   private var maxId = -1
   private def nextId() = synchronized { maxId += 1; maxId }
-  private def create(lowerBound: Double, upperBound: Double, varType: VARIABLE_TYPE, name: String, model: GRBModel) =
-    synchronized(new Variable(lowerBound, upperBound, varType, name, nextId(), model))
+  private def create(lowerBound: Double, upperBound: Double, varType: VARIABLE_TYPE, name: String, model: GRBModel) = {
+    synchronized {
+      new Variable(lowerBound, upperBound, varType, name, nextId(), model)
+    }
+  }
 
   def count = maxId
   def binary(model: GRBModel, name: String) = create(0, 1, BINARY, name, model)
